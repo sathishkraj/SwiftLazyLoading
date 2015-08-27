@@ -18,11 +18,11 @@ class IconDownloader: NSObject {
     var imageConnection: NSURLConnection? = nil
     
     func startDownload() {
-        self.activeDownload = NSMutableData.data()
+        self.activeDownload = NSMutableData()
         
-        var request: NSURLRequest = NSURLRequest(URL: NSURL(string: self.appRecord!.imageURLString!))
+        let request: NSURLRequest = NSURLRequest(URL: NSURL(string: self.appRecord!.imageURLString! as String)!)
         
-        var conn: NSURLConnection = NSURLConnection(request: request, delegate: self)
+        let conn: NSURLConnection = NSURLConnection(request: request, delegate: self)!
         
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         
@@ -48,14 +48,14 @@ class IconDownloader: NSObject {
     func connectionDidFinishLoading(connection: NSURLConnection) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         
-        var image: UIImage = UIImage(data: self.activeDownload!)
+        let image: UIImage = UIImage(data: self.activeDownload!)!
         
         if image.size.width != kAppIconSize || image.size.width != kAppIconSize {
             
-            var itemSize: CGSize = CGSizeMake(kAppIconSize, kAppIconSize)
+            let itemSize: CGSize = CGSizeMake(kAppIconSize, kAppIconSize)
             
             UIGraphicsBeginImageContext(itemSize)
-            var imageRect: CGRect = CGRectMake(0, 0, kAppIconSize, kAppIconSize)
+            let imageRect: CGRect = CGRectMake(0, 0, kAppIconSize, kAppIconSize)
             image.drawInRect(imageRect)
             self.appRecord!.appIcon = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
