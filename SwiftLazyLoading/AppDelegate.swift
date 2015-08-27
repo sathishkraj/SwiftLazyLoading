@@ -25,8 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
-        var url: NSURL = NSURL.URLWithString(TopPaidAppsFeed)
-        var request: NSURLRequest = NSURLRequest(URL: url)
+        let url: NSURL = NSURL(string: TopPaidAppsFeed as String)!
+        let request: NSURLRequest = NSURLRequest(URL: url)
         self.appListFeedConnection = NSURLConnection(request: request, delegate: self, startImmediately: true)
         
         assert(self.appListFeedConnection != nil, "Failure to create URL connection.")
@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func connection(connection: NSURLConnection, didReceiveResponse response: NSURLResponse) {
-        self.appListData = NSMutableData.data()
+        self.appListData = NSMutableData()
     }
     
     func connection(connection: NSURLConnection, didReceiveData data: NSData) {
@@ -59,7 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.queue = NSOperationQueue()
         
-        var parser: ParseOperation = ParseOperation(data: self.appListData)
+        let parser: ParseOperation = ParseOperation(data: self.appListData)
         
         parser.errorHandler = { (error: NSError?) -> () in
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -67,13 +67,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             })
         }
         
-        weak var weakParser: ParseOperation? = parser
         
         parser.completionBlock = {
-            if var appRecord: NSArray = parser.appRecordList {
+            if var _: NSArray = parser.appRecordList {
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    var navigationController: UINavigationController = self.window?.rootViewController as UINavigationController
-                    var rootViewController: ViewController = navigationController.topViewController as ViewController
+                    let navigationController: UINavigationController = self.window?.rootViewController as! UINavigationController
+                    let rootViewController: ViewController = navigationController.topViewController as! ViewController
                     
                     rootViewController.entries = parser.appRecordList
                     rootViewController.tableView.reloadData()
@@ -91,9 +90,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func handleError(error: NSError) {
         
-        var errorMessage: NSString = error.localizedDescription
+        let errorMessage: NSString = error.localizedDescription
         
-        var alert: UIAlertView = UIAlertView(title: "Cannot show top paid apps", message: errorMessage, delegate: nil, cancelButtonTitle: "Ok")
+        let alert: UIAlertView = UIAlertView(title: "Cannot show top paid apps", message: errorMessage as String, delegate: nil, cancelButtonTitle: "Ok")
         
         alert.show()
 

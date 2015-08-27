@@ -32,10 +32,10 @@ class ParseOperation: NSOperation , NSXMLParserDelegate {
     }
     
     override func main() {
-        self.workingArray = NSMutableArray.array()
-        self.workingPropertyString = NSMutableString.string()
+        self.workingArray = NSMutableArray()
+        self.workingPropertyString = NSMutableString()
         
-        var parser = NSXMLParser(data: self.dataToParse!)
+        let parser = NSXMLParser(data: self.dataToParse!)
         parser.delegate = self
         parser.parse()
         
@@ -48,18 +48,18 @@ class ParseOperation: NSOperation , NSXMLParserDelegate {
         self.dataToParse = nil;
     }
     
-    func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String!, qualifiedName qName: String!, attributes attributeDict: [NSObject : AnyObject]) {
+    func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
         if elementName == kEntryStr {
             self.workingEntry = AppRecord()
         }
         self.storingCharacterData = self.elementsToParse!.containsObject(elementName)
     }
     
-    func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String!, qualifiedName qName: String!) {
+    func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if self.workingEntry != nil {
             if self.storingCharacterData
             {
-                var trimmedString: NSString = self.workingPropertyString!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+                let trimmedString: NSString = self.workingPropertyString!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
                 self.workingPropertyString!.setString("")
                 if elementName == kIDStr {
                     self.workingEntry!.appURLString = trimmedString

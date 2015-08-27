@@ -12,22 +12,22 @@ class ViewController: UIViewController {
     
     @IBOutlet var tableView: UITableView!
     var entries: NSArray? = nil
-    var imageDownloadsInProgress: NSMutableDictionary? = NSMutableDictionary.dictionary()
+    var imageDownloadsInProgress: NSMutableDictionary? = NSMutableDictionary()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         //self.handleError(NSError(domain: "Hello", code: 400, userInfo: nil))
         
-        self.imageDownloadsInProgress = NSMutableDictionary.dictionary()
+        self.imageDownloadsInProgress = NSMutableDictionary()
     }
     
     func handleError(error: NSError) {
         
-        var errorMessage: NSString = error.localizedDescription
-        var alert: UIAlertController = UIAlertController(title: "Cannot show top paid apps", message:errorMessage, preferredStyle:UIAlertControllerStyle.Alert)
+        let errorMessage: NSString = error.localizedDescription
+        let alert: UIAlertController = UIAlertController(title: "Cannot show top paid apps", message:errorMessage as String, preferredStyle:UIAlertControllerStyle.Alert)
         
-        var okAction: UIAlertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default) { (action: UIAlertAction!) -> Void in
+        let okAction: UIAlertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default) { (action: UIAlertAction) -> Void in
             alert.dismissViewControllerAnimated(true, completion: { () -> Void in
                 
             })
@@ -57,22 +57,22 @@ class ViewController: UIViewController {
         let CellIdentifier: NSString = "LazyTableCell"
         let PlaceholderCellIdentifier: NSString = "PlaceholderCell"
         
-        var nodeCount: NSInteger = self.entries!.count
+        let nodeCount: NSInteger = self.entries!.count
         
         var cell : UITableViewCell
         
         if nodeCount == 0 && indexPath.row == 0 {
-            cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as UITableViewCell
+            cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier as String)!
             cell.textLabel?.text = "Loading..."
             return cell
         }
         
-        cell = tableView.dequeueReusableCellWithIdentifier(PlaceholderCellIdentifier) as UITableViewCell
+        cell = tableView.dequeueReusableCellWithIdentifier(PlaceholderCellIdentifier as String)!
         
-        var appRecord: AppRecord = self.entries!.objectAtIndex(indexPath.row) as AppRecord
+        let appRecord: AppRecord = self.entries!.objectAtIndex(indexPath.row) as! AppRecord
         
-        cell.textLabel?.text = appRecord.appName
-        cell.detailTextLabel?.text = appRecord.artist
+        cell.textLabel?.text = appRecord.appName as? String
+        cell.detailTextLabel?.text = appRecord.artist as? String
         
         if appRecord.appIcon == nil {
             if self.tableView.dragging == false && self.tableView.decelerating == false {
@@ -91,16 +91,16 @@ class ViewController: UIViewController {
     func startIconDownload(appRecord: AppRecord?, indexPath: NSIndexPath) {
         //var iconDownloader: IconDownloader? = nil
         //iconDownloader = (self.imageDownloadsInProgress!.objectForKey(indexPath) as IconDownloader)
-        if var iconDownloader = self.imageDownloadsInProgress!.objectForKey(indexPath) as? IconDownloader {
+        if let _ = self.imageDownloadsInProgress!.objectForKey(indexPath) as? IconDownloader {
             
         } else {
-            var iconDownloader: IconDownloader = IconDownloader()
+            let iconDownloader: IconDownloader = IconDownloader()
             iconDownloader.appRecord = appRecord
             
             iconDownloader.completionHandler = {
-                var cell: UITableViewCell? = self.tableView.cellForRowAtIndexPath(indexPath)
+                let cell: UITableViewCell? = self.tableView.cellForRowAtIndexPath(indexPath)
                 
-                if var image = appRecord!.appIcon {
+                if let image = appRecord!.appIcon {
                     cell!.imageView!.image = image
                 } else {
                     
@@ -116,10 +116,10 @@ class ViewController: UIViewController {
     
     func loadImagesForOnscreenRows() {
         if self.entries?.count > 0 {
-            var visiblePaths: NSArray = self.tableView.indexPathsForVisibleRows()!
+            let visiblePaths: NSArray = self.tableView.indexPathsForVisibleRows!
             for var index = 0; index < visiblePaths.count; index++  {
-                var indexPath: NSIndexPath = visiblePaths.objectAtIndex(index) as NSIndexPath
-                var appRecord: AppRecord = self.entries?.objectAtIndex(indexPath.row) as AppRecord
+                let indexPath: NSIndexPath = visiblePaths.objectAtIndex(index) as! NSIndexPath
+                let appRecord: AppRecord = self.entries?.objectAtIndex(indexPath.row) as! AppRecord
                     
                     if appRecord.appIcon == nil {
                         self.startIconDownload(appRecord, indexPath: indexPath)
@@ -142,11 +142,11 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
         
-        var allDownloads: NSArray = self.imageDownloadsInProgress!.allValues
+        let allDownloads: NSArray = self.imageDownloadsInProgress!.allValues
         
         //var downloader: IconDownloader
         for var index = 0; index < allDownloads.count; index++ {
-            var downloader: IconDownloader = allDownloads.objectAtIndex(index) as IconDownloader
+            let downloader: IconDownloader = allDownloads.objectAtIndex(index) as! IconDownloader
             downloader.cancelDownload()
          }
         
