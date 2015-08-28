@@ -13,7 +13,6 @@
 		B8C648A419D305EA006785CC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8C648A319D305EA006785CC /* Images.xcassets */; };
 		B8C648A719D305EA006785CC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8C648A519D305EA006785CC /* LaunchScreen.xib */; };
 		B8C648B319D305EA006785CC /* SwiftLazyLoadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C648B219D305EA006785CC /* SwiftLazyLoadingTests.swift */; };
-		B8C648BD19D31071006785CC /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8C648BC19D31071006785CC /* CFNetwork.framework */; };
 		B8C648C219D34414006785CC /* ParseOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C648C119D34414006785CC /* ParseOperation.swift */; };
 		B8C648C419D34AAA006785CC /* AppRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C648C319D34AAA006785CC /* AppRecord.swift */; };
 		B8C648C619D5A064006785CC /* IconDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C648C519D5A064006785CC /* IconDownloader.swift */; };
@@ -42,7 +41,6 @@
 		B8C648AC19D305EA006785CC /* SwiftLazyLoadingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftLazyLoadingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8C648B119D305EA006785CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B8C648B219D305EA006785CC /* SwiftLazyLoadingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftLazyLoadingTests.swift; sourceTree = "<group>"; };
-		B8C648BC19D31071006785CC /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		B8C648BE19D31BBB006785CC /* SwiftLazyLoading-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftLazyLoading-Bridging-Header.h"; sourceTree = "<group>"; };
 		B8C648C119D34414006785CC /* ParseOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseOperation.swift; sourceTree = "<group>"; };
 		B8C648C319D34AAA006785CC /* AppRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppRecord.swift; sourceTree = "<group>"; };
@@ -56,7 +54,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B8C648BD19D31071006785CC /* CFNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,7 +70,6 @@
 		B8C6488E19D305EA006785CC = {
 			isa = PBXGroup;
 			children = (
-				B8C648BC19D31071006785CC /* CFNetwork.framework */,
 				B8C6489919D305EA006785CC /* SwiftLazyLoading */,
 				B8C648AF19D305EA006785CC /* SwiftLazyLoadingTests */,
 				B8C6489819D305EA006785CC /* Products */,
